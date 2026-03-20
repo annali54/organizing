@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organizing Night School — Movement Power</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --red: #C0392B;
+    --red-dark: #7B241C;
+    --red-light: #F9EBEA;
+    --black: #1A1A1A;
+    --off-white: #F5F4F0;
+    --cream: #EDE8DC;
+    --mid-gray: #888;
+    --border: #D0C8B8;
+    --yellow: #E8C84A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--black);
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* HEADER */
+  .masthead {
+    border-top: 6px solid var(--red);
+    border-bottom: 2px solid var(--black);
+    padding: 2.5rem 0 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .masthead-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.75rem;
+  }
+  .masthead h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+  }
+  .masthead-sub {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+  }
+  .masthead-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--mid-gray);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .masthead-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .masthead-meta strong { color: var(--black); }
+
+  /* INTRO */
+  .intro-block {
+    background: var(--black);
+    color: white;
+    padding: 2rem 2.5rem;
+    margin-bottom: 3rem;
+    border-left: 6px solid var(--yellow);
+  }
+  .intro-block p {
+    font-size: 15px;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    color: #E8E4DC;
+  }
+  .intro-block p:last-child { margin-bottom: 0; }
+  .intro-block strong { color: var(--yellow); font-weight: 600; }
+
+  /* SECTION LABELS */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* SYLLABUS OVERVIEW */
+  .syllabus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+  .syllabus-item {
+    background: white;
+    padding: 1.25rem;
+    cursor: default;
+  }
+  .syllabus-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    margin-bottom: 0.4rem;
+  }
+  .syllabus-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    color: var(--black);
+  }
+
+  /* SESSION CARDS */
+  .session {
+    margin-bottom: 4rem;
+    page-break-inside: avoid;
+  }
+  .session-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--black);
+  }
+  .session-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--red);
+    flex-shrink: 0;
+    min-width: 2.5rem;
+  }
+  .session-header-text h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.7rem;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .session-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid-gray);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .session-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    .session-body { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 2rem; }
+  }
+
+  .block {
+    margin-bottom: 1.5rem;
+  }
+  .block-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--red-light);
+  }
+
+  ul.reading-list {
+    list-style: none;
+    padding: 0;
+  }
+  ul.reading-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--cream);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  ul.reading-list li:last-child { border-bottom: none; }
+  .reading-author {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--mid-gray);
+    display: block;
+    margin-top: 1px;
+  }
+  .reading-note {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--mid-gray);
+    margin-top: 2px;
+    display: block;
+  }
+
+  ol.questions {
+    padding-left: 1.2rem;
+  }
+  ol.questions li {
+    margin-bottom: 0.75rem;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  ol.questions li::marker {
+    color: var(--red);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+  }
+
+  .activity-box {
+    background: var(--cream);
+    border-left: 4px solid var(--red);
+    padding: 1.25rem 1.5rem;
+    margin-top: 1rem;
+  }
+  .activity-box h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red-dark);
+    margin-bottom: 0.6rem;
+  }
+  .activity-box p, .activity-box li {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .activity-box ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+  .activity-box ul li { margin-bottom: 0.3rem; }
+
+  .evidence-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    background: var(--red-light);
+    color: var(--red-dark);
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .key-concept {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .key-concept-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--black);
+    margin-bottom: 0.2rem;
+  }
+  .key-concept p {
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.55;
+  }
+
+  .quote-block {
+    border-left: 4px solid var(--yellow);
+    background: var(--black);
+    color: #E8E4DC;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .quote-block cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-style: normal;
+    font-size: 11px;
+    color: var(--yellow);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3.5rem 0;
+  }
+
+  .full-width-block {
+    grid-column: 1 / -1;
+  }
+
+  /* FACILITATOR GUIDE */
+  .fac-tip {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+  .fac-tip-icon {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    flex-shrink: 0;
+    padding-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .fac-tip p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  /* APPENDIX */
+  .appendix {
+    background: var(--cream);
+    padding: 2rem 2.5rem;
+    margin-top: 4rem;
+    border-top: 4px solid var(--black);
+  }
+  .appendix h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .ref-entry {
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    color: #333;
+  }
+  .ref-entry:last-child { border-bottom: none; }
+  .ref-journal {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid-gray);
+  }
+
+  .timeline {
+    display: flex;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 0.75rem;
+  }
+  .timeline-seg {
+    background: white;
+    padding: 0.5rem 0.75rem;
+    flex: 1;
+    font-size: 12px;
+    text-align: center;
+  }
+  .timeline-seg .time { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--mid-gray); display: block; }
+  .timeline-seg .label { font-weight: 600; font-size: 12px; }
+  .timeline-seg.accent { background: var(--red); }
+  .timeline-seg.accent .time { color: #FCC; }
+  .timeline-seg.accent .label { color: white; }
+
+  footer {
+    margin-top: 5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--black);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid-gray);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <p class="masthead-label">DSA Organizing Education &#8212; Night School Series</p>
+  <h1>Movement Power</h1>
+  <p class="masthead-sub">An organizing curriculum for the long game</p>
+  <div class="masthead-meta">
+    <span><strong>6 sessions</strong> &#183; 2 hours each</span>
+    <span><strong>Format:</strong> facilitated discussion + activity</span>
+    <span><strong>Based on:</strong> Momentum school, Engler framework</span>
+  </div>
+</div>
+
+<div class="intro-block">
+  <p><strong>What is this?</strong> This curriculum adapts the Momentum school of organizing for DSA chapter use. It takes the framework of Mark and Paul Engler's <em>This Is an Uprising</em> as its spine and supplements it with peer-reviewed research on mobilization, power, and political behavior. The goal is not just to study movements &#8212; it is to make better organizers.</p>
+  <p>Each session follows the night school format: a short framing, curated readings, group discussion, and one hands-on activity grounded in real chapter work. Sessions build on each other but can also stand alone. The curriculum is deliberately critical of electoralism as a sufficient strategy while taking seriously the relationship between organizing and electoral politics.</p>
+  <p><strong>A note on theory and practice:</strong> The Englers distinguish between "structure-based" organizing (building institutions, growing membership, incremental wins) and "momentum-driven" organizing (mass mobilization, moral confrontation, shifting what is politically possible). Neither is enough alone. This school asks: how do we do both?</p>
+</div>
+
+<p class="section-label">Curriculum overview</p>
+
+<div class="syllabus-grid">
+  <div class="syllabus-item">
+    <p class="syllabus-num">Session 01</p>
+    <p class="syllabus-title">Why organizing? Structure vs. momentum</p>
+  </div>
+  <div class="syllabus-item">
+    <p class="syllabus-num">Session 02</p>
+    <p class="syllabus-title">Power analysis: pillars and spectrum of allies</p>
+  </div>
+  <div class="syllabus-item">
+    <p class="syllabus-num">Session 03</p>
+    <p class="syllabus-title">The dilemma action: making conflict work</p>
+  </div>
+  <div class="syllabus-item">
+    <p class="syllabus-num">Session 04</p>
+    <p class="syllabus-title">Narrative and the battle for common sense</p>
+  </div>
+  <div class="syllabus-item">
+    <p class="syllabus-num">Session 05</p>
+    <p class="syllabus-title">The science of mobilization: what evidence tells us</p>
+  </div>
+  <div class="syllabus-item">
+    <p class="syllabus-num">Session 06</p>
+    <p class="syllabus-title">Movement ecology: roles, sustainability, the long game</p>
+  </div>
+</div>
+
+
+<!-- SESSION 1 -->
+<div class="session">
+  <div class="session-header">
+    <div class="session-number">01</div>
+    <div class="session-header-text">
+      <h2>Why organizing? Structure vs. momentum</h2>
+      <div class="session-meta">
+        <span>2 hours</span>
+        <span>Foundational</span>
+        <span>Engler Chapters 1&#8211;3</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    "Mass protest creates moments of the whirlwind &#8212; periods when the energy of a movement surges, public attention intensifies, and significant change becomes possible."
+    <cite>&#8212; Mark &amp; Paul Engler, This Is an Uprising (2016)</cite>
+  </div>
+
+  <div class="session-body">
+    <div>
+      <div class="block">
+        <p class="block-head">Key concepts</p>
+        <div class="key-concept">
+          <p class="key-concept-name">Structure-based organizing</p>
+          <p>Building durable institutions: membership, dues, staff, incremental wins. The Alinsky model. Strength comes from numbers and staying power. Weakness: can become risk-averse, transactional, and slow to respond to moments.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Momentum-driven organizing</p>
+          <p>Mass mobilization, moral confrontation, escalating campaigns. The King/Gandhi/Otpor model. Strength: can shift the political landscape rapidly, force crises that expose contradictions. Weakness: hard to sustain, burns people out, can fade without structural infrastructure.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">The whirlwind</p>
+          <p>Moments when multiple factors converge &#8212; a trigger event, sustained organizing, and public readiness &#8212; to create rapid political change. Momentum organizers prepare for whirlwinds even during quiet periods.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <p class="block-head">Readings</p>
+        <ul class="reading-list">
+          <li>
+            <strong>This Is an Uprising</strong>, Chapters 1&#8211;3
+            <span class="reading-author">Engler &amp; Engler (2016)</span>
+            <span class="reading-note">Core framework: structure vs. momentum. Assign the full intro + Ch. 1 at minimum.</span>
+          </li>
+          <li>
+            <strong>"Social Mobilization"</strong>
+            <span class="reading-author">Rogers, Goldstein &amp; Fox, Annual Review of Psychology (2018)</span>
+            <span class="reading-note">Introduces the PANIC framework for mobilization &#8212; useful as an evidence-grounding for the Engler argument. Read the abstract + conclusion for discussion prep.</span>
+          </li>
+          <li>
+            <strong>Momentum Community: Fundamentals overview</strong>
+            <span class="reading-author">momentumcommunity.org &#8212; free download</span>
+            <span class="reading-note">One-page summary of the Momentum school's core principles.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-head">Discussion questions</p>
+    <ol class="questions">
+      <li>Think of a campaign or movement you have been part of or observed. Was it primarily structure-based or momentum-driven? What did it succeed at and where did it fall short?</li>
+      <li>The Englers argue that "civility and disruption are not opposites &#8212; they are partners." Do you agree? When does disruption become counterproductive?</li>
+      <li>DSA occupies a strange position: it is a dues-paying membership organization (structure) that also wants to build mass politics (momentum). What tensions does this create in your chapter right now?</li>
+      <li>What would a "whirlwind moment" look like in your city or region? What would your chapter need to be ready to move into it?</li>
+    </ol>
+  </div>
+
+  <div class="activity-box">
+    <h4>Activity: movement timeline (40 min)</h4>
+    <p>In small groups, map a movement participants know (labor, civil rights, environmental, housing, etc.) onto a timeline. Identify: (1) the structure-building phase, (2) the trigger event, (3) the whirlwind, (4) what came after. Each group presents. Full group debrief: what conditions made the whirlwind possible? What happened to the movement once it subsided?</p>
+    <ul>
+      <li>Materials needed: large paper or whiteboard, markers</li>
+      <li>Groups of 3&#8211;4, 20 min small group + 20 min debrief</li>
+      <li>Facilitator: push groups to identify what the opposition did in each phase</li>
+    </ul>
+  </div>
+
+  <div class="fac-tip">
+    <p class="fac-tip-icon">Tip</p>
+    <p>This session often reveals a latent conflict in the room between members who want to win elections and those who want to build mass movements. Don't resolve this tension in session 1 &#8212; name it, honor it, and tell participants the curriculum will keep returning to it.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SESSION 2 -->
+<div class="session">
+  <div class="session-header">
+    <div class="session-number">02</div>
+    <div class="session-header-text">
+      <h2>Power analysis: pillars and spectrum of allies</h2>
+      <div class="session-meta">
+        <span>2 hours</span>
+        <span>Strategic</span>
+        <span>Engler Chapters 4&#8211;5 &amp; Gene Sharp</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-body">
+    <div>
+      <div class="block">
+        <p class="block-head">Key concepts</p>
+        <div class="key-concept">
+          <p class="key-concept-name">Pillars of support</p>
+          <p>Developed from Gene Sharp's work: power is not monolithic but rests on pillars &#8212; business, military, media, religious institutions, political parties, civil society, police. Movements win by eroding support from one or more pillars, not by defeating the opponent head-on.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Spectrum of allies</p>
+          <p>Not everyone is your enemy and not everyone is your base. The spectrum runs: active opposition &#8212; passive opposition &#8212; neutral &#8212; passive support &#8212; active support. Winning means moving neutrals and passive supporters one step toward active support, not converting opponents.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Embedded representatives</p>
+          <p>Research (Poertner 2023) shows that representatives who are embedded in local organizational networks dramatically increase their constituents' political participation. Officeholding builds infrastructure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <p class="block-head">Readings</p>
+        <ul class="reading-list">
+          <li>
+            <strong>This Is an Uprising</strong>, Chapters 4&#8211;5
+            <span class="reading-author">Engler &amp; Engler (2016)</span>
+            <span class="reading-note">Pillars of support, spectrum of allies, and the theory of change behind nonviolent conflict.</span>
+          </li>
+          <li>
+            <strong>"Does Political Representation Increase Participation?"</strong>
+            <span class="reading-author">Poertner, American Political Science Review (2023)</span>
+            <span class="reading-note">Evidence that community-embedded candidates expand local networks and participation &#8212; relevant to DSA electoral strategy.</span>
+          </li>
+          <li>
+            <strong>"Countering Capture in Local Politics"</strong>
+            <span class="reading-author">Incerti, Journal of Politics (2024)</span>
+            <span class="reading-note">Outreach emails to renters doubled pro-housing voices at city council. Shows how to shift the active participant pool in a specific arena of power.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-head">Discussion questions</p>
+    <ol class="questions">
+      <li>Pick a current campaign your chapter is working on. What are the relevant pillars of support for the opposition? Which pillar is most vulnerable right now?</li>
+      <li>Incerti's research found that email outreach turned renters into 46% of pro-housing comments at targeted city council meetings. What does this tell us about who shows up to local political spaces and why it matters?</li>
+      <li>Poertner's research is from Mexico, but the mechanism &#8212; community-embedded representatives expand networks &#8212; seems generalizable. Does this match your experience with DSA candidates or officeholders?</li>
+      <li>The spectrum of allies framework can feel cold and strategic. How do we balance treating people as strategic actors to be moved with treating them as full human beings?</li>
+    </ol>
+  </div>
+
+  <div class="activity-box">
+    <h4>Activity: power map your campaign (45 min)</h4>
+    <p>Choose a live campaign the chapter is running or considering. As a full group, build a power map with two components: (1) <strong>Pillars:</strong> list the institutions that sustain the opposition's power in this specific fight and assess their vulnerability; (2) <strong>Spectrum:</strong> identify real-world constituencies in each category from active opposition to active support. Then discuss: what is one thing the chapter could do in the next month to move one group one step along the spectrum?</p>
+    <ul>
+      <li>Materials: whiteboard or digital canvas (e.g., Miro, Jamboard)</li>
+      <li>Full-group exercise, 30 min mapping + 15 min strategy conversation</li>
+    </ul>
+  </div>
+
+  <div class="fac-tip">
+    <p class="fac-tip-icon">Tip</p>
+    <p>People often conflate "neutral" with "not our problem." Push back on this. Neutrals are the primary target in most campaigns. Also: watch for the tendency to put everyone you disagree with in "active opposition." That is almost never accurate and leads to strategic errors.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SESSION 3 -->
+<div class="session">
+  <div class="session-header">
+    <div class="session-number">03</div>
+    <div class="session-header-text">
+      <h2>The dilemma action: making nonviolent conflict work</h2>
+      <div class="session-meta">
+        <span>2 hours</span>
+        <span>Tactical</span>
+        <span>Engler Chapters 6&#8211;8</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    "A good dilemma action puts the opponent in a position where either response &#8212; complying or repressing &#8212; advances the movement's goals."
+    <cite>&#8212; Engler &amp; Engler, This Is an Uprising</cite>
+  </div>
+
+  <div class="session-body">
+    <div>
+      <div class="block">
+        <p class="block-head">Key concepts</p>
+        <div class="key-concept">
+          <p class="key-concept-name">The dilemma action</p>
+          <p>An action designed so that the opponent's response &#8212; whether accommodation or repression &#8212; benefits the movement. Accommodation demonstrates the movement's power. Repression exposes the opponent's violence and attracts sympathy. Birmingham 1963 is the canonical example.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Jiu-jitsu politics</p>
+          <p>When opponents respond disproportionately to nonviolent action, their own violence becomes a recruiting tool. This is not passive suffering &#8212; it is a strategic use of moral asymmetry.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Escalation ladders</p>
+          <p>Effective campaigns escalate deliberately: from petition to public pressure to disruption to civil disobedience. Each rung should be planned in advance, with a clear threshold for moving up.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <p class="block-head">Readings</p>
+        <ul class="reading-list">
+          <li>
+            <strong>This Is an Uprising</strong>, Chapters 6&#8211;8
+            <span class="reading-author">Engler &amp; Engler (2016)</span>
+            <span class="reading-note">The dilemma action, escalation theory, and case studies from Birmingham to ACT UP.</span>
+          </li>
+          <li>
+            <strong>"Born for a Storm": Hard-Right Social Media and Civil Unrest</strong>
+            <span class="reading-author">Karell, Linke et al., American Sociological Review (2023)</span>
+            <span class="reading-note">Not about our side, but essential: shows how online activity shifts perceived norms of participation, lowering the bar for offline mobilization. Applicable in both directions.</span>
+          </li>
+          <li>
+            <strong>Momentum: Dilemma Actions training module</strong>
+            <span class="reading-author">momentumcommunity.org &#8212; free</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-head">Discussion questions</p>
+    <ol class="questions">
+      <li>Think of a recent action your chapter or a movement you follow has taken. Was it designed as a dilemma action? If not, how could it have been?</li>
+      <li>The Englers argue that nonviolent discipline is not just a moral stance &#8212; it is a strategic one. Do you agree? What happens when participants in an action break nonviolent discipline?</li>
+      <li>Karell et al. found that far-right online activity shifts perceived norms of participation, making previously taboo acts feel acceptable. How does this dynamic apply to left movements? What norms are we shifting (or should we be shifting) through our organizing?</li>
+      <li>Escalation ladders require planning and commitment. What organizational capacity does your chapter need to run a genuine escalation campaign? What's missing?</li>
+    </ol>
+  </div>
+
+  <div class="activity-box">
+    <h4>Activity: design a dilemma action (45 min)</h4>
+    <p>In groups of 4&#8211;5, choose a concrete target in a current campaign (a developer, a city official, a corporation, a policy). Design an action that functions as a dilemma: (1) state what the accommodation response would be and how it advances your goal; (2) state what the repression response would be and how that also advances your goal; (3) describe the nonviolent discipline required; (4) describe who the action is designed to move along the spectrum of allies. Groups present and receive peer feedback.</p>
+    <ul>
+      <li>Emphasize: actions that feel good to participants but do not create a dilemma are not dilemma actions.</li>
+      <li>Optional: use Momentum's "SMARTI" criteria (specific, measurable, achievable, relevant, time-bound, inclusive) to evaluate each proposal.</li>
+    </ul>
+  </div>
+
+  <div class="fac-tip">
+    <p class="fac-tip-icon">Tip</p>
+    <p>This session can generate conflict between members who prioritize militancy and those who prioritize broad public legitimacy. The Engler framework does not resolve this &#8212; it historicizes it. Birmingham worked because King had already built deep nonviolent discipline over years. Emphasize: the discipline is the prerequisite, not the constraint.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SESSION 4 -->
+<div class="session">
+  <div class="session-header">
+    <div class="session-number">04</div>
+    <div class="session-header-text">
+      <h2>Narrative and the battle for common sense</h2>
+      <div class="session-meta">
+        <span>2 hours</span>
+        <span>Strategic</span>
+        <span>Engler + Gramsci + communication science</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-body">
+    <div>
+      <div class="block">
+        <p class="block-head">Key concepts</p>
+        <div class="key-concept">
+          <p class="key-concept-name">Narrative vs. messaging</p>
+          <p>Messaging responds to news cycles. Narrative shapes how people understand social reality over time. Momentum organizers focus on narrative: who are the protagonists, what is at stake, who is the opponent, and what does victory look like? Good narrative survives bad news cycles.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Moralized values</p>
+          <p>Research (Jung &amp; Clifford 2025) shows that moralized values polarize far more than non-moralized ones. This is double-edged: moral framing galvanizes your base but risks entrenching opponents. Use moral language deliberately, especially on issues where your audience already shares the moral intuition.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Symbolic vs. substantive change</p>
+          <p>Rahnama (2025) found that Confederate monument removal reduced racial resentment and hate crimes locally. Symbolic acts are not substitutes for material demands &#8212; but they can shift norms in ways that make material demands more achievable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <p class="block-head">Readings</p>
+        <ul class="reading-list">
+          <li>
+            <strong>This Is an Uprising</strong>, Chapters 9&#8211;10
+            <span class="reading-author">Engler &amp; Engler (2016)</span>
+            <span class="reading-note">Narrative power, the role of declare moments, and how movements build public legitimacy.</span>
+          </li>
+          <li>
+            <strong>"Varieties of Values: Moral Values Are Uniquely Divisive"</strong>
+            <span class="reading-author">Jung &amp; Clifford, American Political Science Review (2025)</span>
+            <span class="reading-note">Moralized values polarize significantly more than pragmatic ones &#8212; critical for knowing when and how to moralize a demand.</span>
+          </li>
+          <li>
+            <strong>"Monumental Changes: Confederate Symbol Removals and Racial Attitudes"</strong>
+            <span class="reading-author">Rahnama, Journal of Politics (2025)</span>
+            <span class="reading-note">Symbolic change can shift material conditions &#8212; evidence for the role of cultural contestation in organizing.</span>
+          </li>
+          <li>
+            <strong>"Policy Impact and Voter Mobilization"</strong>
+            <span class="reading-author">Jares &amp; Malhotra, American Political Science Review (2025)</span>
+            <span class="reading-note">Policy benefits alone don't mobilize &#8212; narrative framing is the differentiating factor.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-head">Discussion questions</p>
+    <ol class="questions">
+      <li>What is the dominant narrative about your chapter's key issue in your city right now? Who is telling it? Who are the heroes and villains in that narrative?</li>
+      <li>Jares and Malhotra found that variation in policy benefits had negligible effect on mobilization &#8212; what mobilizes is narrative framing. How does this challenge the idea that we just need to "pass good policy" to build support?</li>
+      <li>Jung and Clifford's research suggests that moralized values are uniquely polarizing. On which of your chapter's issues should you moralize your framing, and on which should you use pragmatic/material language?</li>
+      <li>Rahnama's work shows that symbolic changes (monument removal) can reduce hate crimes and racial resentment. What symbolic demands could your chapter make that would shift norms as well as make material progress?</li>
+    </ol>
+  </div>
+
+  <div class="activity-box">
+    <h4>Activity: campaign narrative audit (40 min)</h4>
+    <p>As a group, take one of your chapter's current campaigns and answer the following in writing on a whiteboard: (1) Who is the protagonist (and is it the community, not just the chapter)? (2) What is the injustice, named concretely? (3) Who is the antagonist &#8212; an institution, a policy, a person? (4) What does victory look, sound, and feel like? (5) Where does our narrative currently go silent or fuzzy? Discuss: are we making material or moral arguments? Are we making both? Where are we inconsistent?</p>
+  </div>
+
+  <div class="fac-tip">
+    <p class="fac-tip-icon">Tip</p>
+    <p>A common trap: conflating "our analysis" with "our narrative." The analysis of why housing is unaffordable is not the same as the story that moves people to act. Both are necessary. Push participants to distinguish them.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SESSION 5 -->
+<div class="session">
+  <div class="session-header">
+    <div class="session-number">05</div>
+    <div class="session-header-text">
+      <h2>The science of mobilization: what evidence tells us</h2>
+      <div class="session-meta">
+        <span>2 hours</span>
+        <span>Evidence-based</span>
+        <span>Rogers et al. + selected research</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-body">
+    <div>
+      <div class="block">
+        <p class="block-head">Key concepts</p>
+
+        <div class="key-concept">
+          <p class="key-concept-name">PANIC: the five mobilization principles</p>
+          <p>Rogers, Goldstein &amp; Fox (2018) synthesize behavioral evidence on mass mobilization into five principles: <strong>Personal</strong> (face-to-face, tailored contact outperforms broadcast), <strong>Accountable</strong> (public pledges and observable participation increase follow-through), <strong>Normative</strong> (social norms and peer behavior are the strongest drivers), <strong>Identity-relevant</strong> (frame participation as core to who people are, not just what they want), <strong>Connected</strong> (social network activation multiplies individual effects).</p>
+        </div>
+
+        <div class="key-concept">
+          <p class="key-concept-name">Worry, not enthusiasm, mobilizes</p>
+          <p>Phillips &amp; Plutzer (2023) found that worry about outcomes mobilized turnout significantly more than enthusiasm in the 2018 midterms. This has implications for how we frame both electoral and issue campaigns: what are people afraid of losing?</p>
+        </div>
+
+        <div class="key-concept">
+          <p class="key-concept-name">Sustained solidarity vs. crisis spikes</p>
+          <p>Roman &amp; Thompson (2024) show that violence against LGBTQ+ people briefly boosts prosocial attitudes but the effect fades quickly without sustained solidarity infrastructure. Crisis moments are entry points, not substitutes for long-term organizing.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <p class="block-head">Readings</p>
+        <ul class="reading-list">
+          <li>
+            <strong>"Social Mobilization"</strong>
+            <span class="reading-author">Rogers, Goldstein &amp; Fox, Annual Review of Psychology (2018)</span>
+            <span class="reading-note">Full article strongly recommended. The PANIC framework is the closest thing to an evidence-based theory of mobilization we have. Pay attention to the field experiment evidence on canvassing, social norms, and network effects.</span>
+          </li>
+          <li>
+            <strong>"Fickle Prosociality: How Violence Against LGBTQ+ People Motivates Prosocial Mass Attitudes"</strong>
+            <span class="reading-author">Roman &amp; Thompson, American Political Science Review (2024)</span>
+          </li>
+          <li>
+            <strong>"Reassessing the Effects of Emotions on Turnout"</strong>
+            <span class="reading-author">Phillips &amp; Plutzer, Journal of Politics (2023)</span>
+          </li>
+          <li>
+            <strong>"Peer Networks and Ideological Consistency"</strong>
+            <span class="reading-author">Rawlings, Johnston &amp; Eagle, American Journal of Sociology (2025)</span>
+            <span class="reading-note">Peer community &#8212; not curriculum &#8212; is what drives belief liberalization in higher education. YDSA application: build community first.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-head">Discussion questions</p>
+    <ol class="questions">
+      <li>The PANIC framework says normative pressure &#8212; what your peers are doing &#8212; is the strongest driver of participation. How does your chapter currently use (or fail to use) social norms in your organizing?</li>
+      <li>If worry mobilizes more than enthusiasm, what does this mean for chapters that rely primarily on inspiring speeches, feel-good events, and "wins-as-motivation"?</li>
+      <li>Roman and Thompson's fickle prosociality finding suggests that crisis moments spike support but it fades. What would "sustained solidarity infrastructure" look like in practice for your chapter's cross-issue work?</li>
+      <li>Rawlings et al. found that peer community is what drives belief change in students &#8212; more than curriculum or faculty. What does this mean for how DSA runs its political education vs. how it builds community?</li>
+    </ol>
+  </div>
+
+  <div class="activity-box">
+    <h4>Activity: PANIC audit of your chapter's outreach (35 min)</h4>
+    <p>Rate your chapter's current organizing practices on each dimension of the PANIC framework (1&#8211;5): Personal, Accountable, Normative, Identity-relevant, Connected. Do this individually first (5 min), then share in pairs (10 min), then as a full group build a composite picture. Identify the two dimensions where you score lowest. For each, brainstorm one concrete change you could make in the next six weeks. Assign owners before leaving the room.</p>
+    <ul>
+      <li>Materials: printed PANIC rubric or whiteboard columns</li>
+    </ul>
+  </div>
+
+  <div class="fac-tip">
+    <p class="fac-tip-icon">Tip</p>
+    <p>Some participants will push back on "social science" as reductionist. That is a legitimate concern worth engaging, not dismissing. The point is not to run your chapter like an A/B test &#8212; it is to learn which hunches have more evidence behind them than others. Hold both the science and the art of organizing.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SESSION 6 -->
+<div class="session">
+  <div class="session-header">
+    <div class="session-number">06</div>
+    <div class="session-header-text">
+      <h2>Movement ecology: roles, sustainability, the long game</h2>
+      <div class="session-meta">
+        <span>2 hours</span>
+        <span>Synthesis + reflection</span>
+        <span>Engler conclusion + Ella Baker</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    "Strong people don't need strong leaders."
+    <cite>&#8212; Ella Baker</cite>
+  </div>
+
+  <div class="session-body">
+    <div>
+      <div class="block">
+        <p class="block-head">Key concepts</p>
+        <div class="key-concept">
+          <p class="key-concept-name">The movement ecosystem</p>
+          <p>Momentum identifies four interdependent roles: <strong>mobilizers</strong> (turn people out, create energy), <strong>organizers</strong> (build relationships and durable power), <strong>trainers</strong> (develop capacity and pass on skills), and <strong>reformers</strong> (work inside institutions to translate movement pressure into policy). All four are necessary. A movement made only of mobilizers burns out; one made only of reformers gets captured.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">Factional polarization inside organizations</p>
+          <p>Young and de-Wit (2025) found that within-party factional hostility can equal or exceed between-party hostility. DSA chapters are not immune. Managing internal conflict is a strategic necessity, not just a culture problem.</p>
+        </div>
+        <div class="key-concept">
+          <p class="key-concept-name">The long game</p>
+          <p>The Englers argue that social movements move in cycles. The organizing done in quiet periods &#8212; building structure, training leaders, developing narrative &#8212; determines who is ready when the whirlwind comes. Burnout is a structural problem, not an individual failure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <p class="block-head">Readings</p>
+        <ul class="reading-list">
+          <li>
+            <strong>This Is an Uprising</strong>, Conclusion: "The Craft of Conflict"
+            <span class="reading-author">Engler &amp; Engler (2016)</span>
+          </li>
+          <li>
+            <strong>"Affective Polarization Within Parties"</strong>
+            <span class="reading-author">Young &amp; de-Wit, Political Psychology (2025)</span>
+            <span class="reading-note">Within-party factional hostility can be as intense as between-party hostility &#8212; a warning for DSA's internal culture.</span>
+          </li>
+          <li>
+            <strong>"Political Awareness and the Identity-to-Politics Link"</strong>
+            <span class="reading-author">Jones, Journal of Politics (2023)</span>
+            <span class="reading-note">Political education strengthens the link between identity and political action &#8212; the core justification for night school itself.</span>
+          </li>
+          <li>
+            <strong>Ella Baker: "Developing Community Leadership" (1969)</strong>
+            <span class="reading-note">Available free online. Baker's critique of charismatic leadership and her case for bottom-up organizing are essential complements to the Engler framework.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-head">Discussion questions</p>
+    <ol class="questions">
+      <li>Where in the ecosystem (mobilizer, organizer, trainer, reformer) do you currently spend most of your time? Where does your chapter as a whole cluster? What roles are understaffed?</li>
+      <li>Young and de-Wit found that factional hostility within parties can be as strong as hostility toward the opposition. Have you seen this in DSA? What specific dynamics does it create, and what might address them?</li>
+      <li>Jones finds that political education strengthens the link between people's identities and their political engagement. Does this curriculum do that? What would you change?</li>
+      <li>Ella Baker warned against organizing that centers charismatic leaders rather than building the capacity of ordinary people. Where does DSA currently rely on individual stars in ways that create fragility?</li>
+      <li>What does the "long game" require of you personally, practically? What conditions would allow you to sustain your involvement for five to ten years?</li>
+    </ol>
+  </div>
+
+  <div class="activity-box">
+    <h4>Activity: ecosystem mapping + personal commitments (45 min)</h4>
+    <p><strong>Part 1 (20 min):</strong> As a group, map your chapter onto the four ecosystem roles. Be honest about where people cluster and what is missing. Then discuss: what is one concrete thing you could do to strengthen your weakest role in the next quarter? Assign owners.</p>
+    <p style="margin-top: 0.75rem;"><strong>Part 2 (25 min):</strong> Individual reflection and sharing. Each participant writes privately: (1) one thing from this curriculum they will change about how they organize; (2) one commitment to their own sustainability and longevity in the movement. Pairs share. Full group closes with one word per person.</p>
+  </div>
+
+  <div class="fac-tip">
+    <p class="fac-tip-icon">Tip</p>
+    <p>This session should end with clarity about what is next &#8212; not just inspiration. Make sure the chapter has a plan for following up on the commitments made in Part 2. A night school that produces insight without action only builds a reading group.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- APPENDIX -->
+<div class="appendix">
+  <h3>Academic references used in this curriculum</h3>
+  <p style="font-size: 13px; color: #555; margin-bottom: 1.5rem;">All journal articles below are from the DSA References database. Full abstracts and DOIs are available in the source database. Takeaways are drawn directly from the database annotations.</p>
+
+  <div class="ref-entry">
+    <strong>Rogers, T., Goldstein, N.J., &amp; Fox, C.R. (2018).</strong> "Social Mobilization." <span class="ref-journal">Annual Review of Psychology, 69, 357&#8211;381.</span><br>
+    PANIC framework: Personal, Accountable, Normative, Identity-relevant, Connected &#8212; synthesizes behavioral evidence on mass mobilization. Used in Sessions 1 and 5.
+  </div>
+  <div class="ref-entry">
+    <strong>Karell, D., Linke, A., Holland, E., &amp; Hendrickson, E. (2023).</strong> "'Born for a Storm': Hard-Right Social Media and Civil Unrest." <span class="ref-journal">American Sociological Review, 88(2), 322&#8211;349.</span><br>
+    Norm-shifting online activity predicts offline mobilization. Used in Session 3.
+  </div>
+  <div class="ref-entry">
+    <strong>Poertner, M. (2023).</strong> "Does Political Representation Increase Participation? Evidence from Party Candidate Lotteries in Mexico." <span class="ref-journal">American Political Science Review, 117(2), 537&#8211;556.</span><br>
+    Community-embedded representatives expand local networks and participation. Used in Session 2.
+  </div>
+  <div class="ref-entry">
+    <strong>Incerti, T. (2024).</strong> "Countering Capture in Local Politics: Evidence from Eight Field Experiments." <span class="ref-journal">Journal of Politics, 86(4), 1603&#8211;1607.</span><br>
+    Email outreach turned renters into 46% of pro-housing city council comments. Used in Session 2.
+  </div>
+  <div class="ref-entry">
+    <strong>Jung, J.-H., &amp; Clifford, S. (2025).</strong> "Varieties of Values: Moral Values Are Uniquely Divisive." <span class="ref-journal">American Political Science Review, 119(1), 462&#8211;478.</span><br>
+    Moralized values polarize far more than pragmatic ones. Used in Session 4.
+  </div>
+  <div class="ref-entry">
+    <strong>Rahnama, R. (2025).</strong> "Monumental Changes: Confederate Symbol Removals and Racial Attitudes in the United States." <span class="ref-journal">Journal of Politics, 87(1), 158&#8211;171.</span><br>
+    Symbolic change (monument removal) reduced racial resentment and hate crimes. Used in Session 4.
+  </div>
+  <div class="ref-entry">
+    <strong>Jares, J.A., &amp; Malhotra, N. (2025).</strong> "Policy Impact and Voter Mobilization: Evidence from Farmers' Trade War Experiences." <span class="ref-journal">American Political Science Review, 119(2), 847&#8211;869.</span><br>
+    Policy benefits alone don't mobilize &#8212; narrative framing is the differentiating variable. Used in Session 4.
+  </div>
+  <div class="ref-entry">
+    <strong>Phillips, J.B., &amp; Plutzer, E. (2023).</strong> "Reassessing the Effects of Emotions on Turnout." <span class="ref-journal">Journal of Politics, 85(3), 1094&#8211;1106.</span><br>
+    Worry mobilized turnout more than enthusiasm in the 2018 midterms. Used in Session 5.
+  </div>
+  <div class="ref-entry">
+    <strong>Roman, M.F., &amp; Thompson, J. (2024).</strong> "Fickle Prosociality: How Violence against LGBTQ+ People Motivates Prosocial Mass Attitudes." <span class="ref-journal">American Political Science Review, 1&#8211;19.</span><br>
+    Crisis-driven solidarity spikes quickly fade without sustained infrastructure. Used in Session 5.
+  </div>
+  <div class="ref-entry">
+    <strong>Rawlings, C.M., Johnston, E.F., &amp; Eagle, D.E. (2025).</strong> "Peer Networks and Ideological Consistency." <span class="ref-journal">American Journal of Sociology, 131(2), 408&#8211;450.</span><br>
+    Peer community drives belief liberalization more than curriculum or instructors. Used in Sessions 5 and 6.
+  </div>
+  <div class="ref-entry">
+    <strong>Jones, P.E. (2023).</strong> "Political Awareness and the Identity-to-Politics Link in Public Opinion." <span class="ref-journal">Journal of Politics, 85(2), 510&#8211;523.</span><br>
+    Political education strengthens the link between identity and political engagement. Used in Session 6.
+  </div>
+  <div class="ref-entry">
+    <strong>Young, D.J., &amp; de-Wit, L.H. (2025).</strong> "Affective Polarization Within Parties." <span class="ref-journal">Political Psychology, 46(1), 49&#8211;69.</span><br>
+    Factional hostility within parties can equal or exceed between-party hostility. Used in Session 6.
+  </div>
+</div>
+
+<footer>
+  <span>DSA Organizing Night School &#8212; Movement Power</span>
+  <span>Based on Engler &amp; Engler (2016) + Momentum school</span>
+  <span>For internal chapter use</span>
+</footer>
+
+</body>
+</html>
